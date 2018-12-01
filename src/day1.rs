@@ -1,4 +1,4 @@
-use std::collections::BTreeSet;
+use std::collections::HashSet;
 
 pub struct Day1;
 
@@ -13,7 +13,7 @@ impl super::Day for Day1 {
     }
 
     fn part_2(&mut self, input: &str) -> String {
-        let mut seen = BTreeSet::new();
+        let mut seen = HashSet::new();
 
         let mut acc = 0;
 

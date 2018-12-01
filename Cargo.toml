@@ -4,5 +4,6 @@ version = "0.1.0"
 authors = ["Ske <voltasalt@gmail.com>"]
 
 [dependencies]
+console = "0.7"
 indicatif = "0.10"
 reqwest = "0.9"

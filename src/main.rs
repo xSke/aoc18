@@ -1,3 +1,4 @@
+extern crate console;
 extern crate indicatif;
 extern crate reqwest;
 
@@ -19,6 +20,8 @@ fn run(day_num: usize, day: &mut Day, aoc_session: &str) {
     let input_file_path = format!("inputs/{}.txt", day_num);
 
     let pb = indicatif::ProgressBar::new_spinner();
+    pb.set_style(indicatif::ProgressStyle::default_spinner().template("{elapsed:>3} {spinner} {prefix:<35!.cyan} {msg}"));
+    pb.set_prefix(&format!("Day {}: {}", day_num, day.name()));
     pb.enable_steady_tick(100);
 
     let input = if Path::new(&input_file_path).exists() {
@@ -39,20 +42,19 @@ fn run(day_num: usize, day: &mut Day, aoc_session: &str) {
         input
     };
 
-    pb.set_message(&format!("Day {}: {} - ...", day_num, day.name()));
+    pb.set_message(&format!("1: {}", console::style("...").red()));
     let part_1 = day.part_1(&input);
-    pb.set_message(&format!("Day {}: {} - {}", day_num, day.name(), part_1));
+
+    pb.set_message(&format!("1: {}, 2: {}", console::style(&part_1).green(), console::style("...").red()));
     let part_2 = day.part_2(&input);
 
-    pb.disable_steady_tick();
-    pb.tick();
-    pb.finish_with_message(&format!("Day {}: {} - {}, {}", day_num, day.name(), part_1, part_2));
+    pb.finish_with_message(&format!("1: {}, 2: {}", console::style(&part_1).green(), console::style(&part_2).green()));
 }
 
 fn main() {
     let session = std::env::var("AOC_SESSION").expect("Expected AoC session in $AOC_SESSION");
 
-    println!(" --- Advent of Code 2018 ---");
+    println!(" --- \u{1f384} \u{2728} Advent of Code 2018 \u{2728} \u{1f384} --- ");
 
     let mut days = [
         Box::new(day1::Day1)
@@ -60,6 +62,11 @@ fn main() {
 
     if let Some(day) = std::env::args().nth(1) {
         let day_num: usize = day.parse::<usize>().unwrap();
+
+        if day_num < 1 || day_num > days.len() {
+            eprintln!("Day {} not found.", day_num);
+            return;
+        }
         run(day_num, days.get_mut(day_num - 1).unwrap().as_mut(), &session);
     } else {
         for (i, day) in days.iter_mut().enumerate() {
