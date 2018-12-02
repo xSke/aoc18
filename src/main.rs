@@ -3,6 +3,7 @@ extern crate indicatif;
 extern crate reqwest;
 
 mod day1;
+mod day2;
 
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -56,8 +57,9 @@ fn main() {
 
     println!(" --- \u{1f384} \u{2728} Advent of Code 2018 \u{2728} \u{1f384} --- ");
 
-    let mut days = [
-        Box::new(day1::Day1)
+    let mut days: [Box<Day>; 2] = [
+        Box::new(day1::Day1),
+        Box::new(day2::Day2)
     ];
 
     if let Some(day) = std::env::args().nth(1) {
