@@ -1,5 +1,3 @@
-pub struct Day2;
-
 fn contains_exactly(s: &str, amount: usize) -> bool {
     // O(n^2), sad
     for c in s.chars() {
@@ -23,26 +21,22 @@ fn equal_chars(a: &str, b: &str) -> String {
     a.chars().zip(b.chars()).filter(|(ac, bc)| ac == bc).map(|(ac, _)| ac).collect()
 }
 
-impl super::Day for Day2 {
-    fn name(&self) -> &str { "Inventory Management System" } 
+pub fn part1(input: &str) -> (String, ()) {
+    let contains_two = input.lines().filter(|s| contains_exactly(s, 2)).count();
+    let contains_three = input.lines().filter(|s| contains_exactly(s, 3)).count();
 
-    fn part_1(&mut self, input: &str) -> String {
-        let contains_two = input.lines().filter(|s| contains_exactly(s, 2)).count();
-        let contains_three = input.lines().filter(|s| contains_exactly(s, 3)).count();
+    ((contains_two * contains_three).to_string(), ())
+}
 
-        (contains_two * contains_three).to_string()
-    }
-
-    fn part_2(&mut self, input: &str) -> String {
-        // Also O(n^2), sad
-        for a in input.lines() {
-            for b in input.lines() {
-                if differing_characters(a, b) == 1 {
-                    // Got it
-                    return equal_chars(a, b);
-                }
+pub fn part2(input: &str, _: ()) -> String {
+    // Also O(n^2), sad
+    for a in input.lines() {
+        for b in input.lines() {
+            if differing_characters(a, b) == 1 {
+                // Got it
+                return equal_chars(a, b);
             }
         }
-        unreachable!();
     }
+    unreachable!();
 }

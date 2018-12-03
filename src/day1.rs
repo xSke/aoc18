@@ -1,31 +1,25 @@
 use std::collections::HashSet;
 
-pub struct Day1;
+pub fn part1(input: &str) -> (String, ()) {
+    return (input
+        .lines()
+        .fold(0, |acc, line| acc + line.parse::<isize>().unwrap())
+        .to_string(), ());
+}
 
-impl super::Day for Day1 {
-    fn name(&self) -> &str { "Chronal Calibration" } 
+pub fn part2(input: &str, _: ()) -> String {
+    let mut seen = HashSet::new();
 
-    fn part_1(&mut self, input: &str) -> String {
-        input
-            .lines()
-            .fold(0, |acc, line| acc + line.parse::<isize>().unwrap())
-            .to_string()
-    }
+    let mut acc = 0;
 
-    fn part_2(&mut self, input: &str) -> String {
-        let mut seen = HashSet::new();
-
-        let mut acc = 0;
-
-        loop {
-            for line in input.lines() {
-                acc += line.parse::<isize>().unwrap();
-                
-                if seen.contains(&acc) {
-                    return acc.to_string();
-                }
-                seen.insert(acc);
+    loop {
+        for line in input.lines() {
+            acc += line.parse::<isize>().unwrap();
+            
+            if seen.contains(&acc) {
+                return acc.to_string();
             }
+            seen.insert(acc);
         }
     }
 }

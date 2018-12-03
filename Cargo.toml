@@ -6,4 +6,5 @@ authors = ["Ske <voltasalt@gmail.com>"]
 [dependencies]
 console = "0.7"
 indicatif = "0.10"
+regex = "1.1"
 reqwest = "0.9"
