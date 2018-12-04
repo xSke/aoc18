@@ -6,6 +6,7 @@ extern crate reqwest;
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -54,7 +55,8 @@ fn main() {
     let mut days: Vec<Box<Fn(&str)>> = vec![
         Box::new(|s| run(s, 1, "Chronal Calibration", day1::part1, day1::part2)),
         Box::new(|s| run(s, 2, "Inventory Management System", day2::part1, day2::part2)),
-        Box::new(|s| run(s, 3, "No Matter How You Slice It", day3::part1, day3::part2))
+        Box::new(|s| run(s, 3, "No Matter How You Slice It", day3::part1, day3::part2)),
+        Box::new(|s| run(s, 4, "Repose Record", day4::part1, day4::part2))
     ];
 
     if let Some(day) = std::env::args().nth(1) {
