@@ -10,6 +10,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -62,7 +63,8 @@ fn main() {
         Box::new(|s| run(s, 4, "Repose Record", day4::part1, day4::part2)),
         Box::new(|s| run(s, 5, "Alchemical Reduction", day5::part1, day5::part2)),
         Box::new(|s| run(s, 6, "Chronal Coordinates", day6::part1, day6::part2)),
-        Box::new(|s| run(s, 7, "The Sum of Its Parts", day7::part1, day7::part2))
+        Box::new(|s| run(s, 7, "The Sum of Its Parts", day7::part1, day7::part2)),
+        Box::new(|s| run(s, 8, "Memory Maneuver", day8::part1, day8::part2))
     ];
 
     if let Some(day) = std::env::args().nth(1) {
