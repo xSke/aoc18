@@ -1,33 +1,29 @@
-use std::collections::{BTreeSet, LinkedList};
+use std::collections::VecDeque;
 
 struct Circle {
-    // Some say linked lists should be banished for all eternity
-    // *laughs in O(1) insertion/removal from both ends*
-    circle: LinkedList<usize>,
-    remaining_marbles: BTreeSet<usize>,
+    // oh. Vecs are still faster. who knew?
+    circle: VecDeque<usize>,
     players: Vec<usize>,
-    current_player: usize
+    current_player: usize,
+    next_marble: usize
 }
 
 impl Circle {
-    fn new(players: usize, marbles: usize) -> Circle {
+    fn new(players: usize) -> Circle {
         Circle {
-            circle: {let mut ll = LinkedList::new(); ll.push_back(0); ll},
-            remaining_marbles: (1..marbles+1).collect(),
+            circle: {let mut ll = VecDeque::new(); ll.push_back(0); ll},
             players: vec![0; players],
-            current_player: 0
+            current_player: 0,
+            next_marble: 1
         }
     }
 
-    fn step(&mut self) -> bool {
-        let next_marble = *self.remaining_marbles.iter().next().unwrap();
-        self.remaining_marbles.remove(&next_marble);
-
-        if next_marble % 23 != 0 {
+    fn step(&mut self) {
+        if self.next_marble % 23 != 0 {
             let f = self.circle.pop_front().unwrap();
             self.circle.push_back(f);
 
-            self.circle.push_back(next_marble);
+            self.circle.push_back(self.next_marble);
         } else {
             for _ in 0..7 {
                 let b = self.circle.pop_back().unwrap();
@@ -39,11 +35,11 @@ impl Circle {
             self.circle.push_back(f);
 
             self.players[self.current_player] += removed;
-            self.players[self.current_player] += next_marble;
+            self.players[self.current_player] += self.next_marble;
         }
 
         self.current_player = (self.current_player + 1) % self.players.len();
-        self.remaining_marbles.len() > 0
+        self.next_marble += 1
     }
 
     fn winner_score(&self) -> usize {
@@ -59,14 +55,13 @@ pub fn part1(input: &str) -> (String, (usize, usize)) {
         caps.get(2).unwrap().as_str().parse().unwrap()
     );
 
-    let mut circle = Circle::new(players, marbles);
-    while circle.step() {
-    }
+    let mut circle = Circle::new(players);
+    for _ in 0..marbles { circle.step() } 
     (circle.winner_score().to_string(), (players, marbles))
 }
 
 pub fn part2(_: &str, (players, marbles): (usize, usize)) -> String {
-    let mut circle = Circle::new(players, marbles * 100);
-    while circle.step() {}
+    let mut circle = Circle::new(players);
+    for _ in 0..marbles*100 { circle.step() } 
     circle.winner_score().to_string()
 }
