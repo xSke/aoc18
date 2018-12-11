@@ -12,6 +12,8 @@ mod day6;
 mod day7;
 mod day8;
 mod day9;
+mod day10;
+mod day11;
 
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -66,7 +68,9 @@ fn main() {
         Box::new(|s| run(s, 6, "Chronal Coordinates", day6::part1, day6::part2)),
         Box::new(|s| run(s, 7, "The Sum of Its Parts", day7::part1, day7::part2)),
         Box::new(|s| run(s, 8, "Memory Maneuver", day8::part1, day8::part2)),
-        Box::new(|s| run(s, 9, "Marble Mania", day9::part1, day9::part2))
+        Box::new(|s| run(s, 9, "Marble Mania", day9::part1, day9::part2)),
+        Box::new(|s| run(s, 10, "The Stars Align", day10::part1, day10::part2)),
+        Box::new(|s| run(s, 11, "Chronal Charge", day11::part1, day11::part2))
     ];
 
     if let Some(day) = std::env::args().nth(1) {
