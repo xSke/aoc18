@@ -3,3 +3,4 @@
 inputs/
 .env
 .vscode/
+.idea/

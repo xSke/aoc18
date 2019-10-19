@@ -1,8 +1,3 @@
-extern crate console;
-extern crate indicatif;
-extern crate regex;
-extern crate reqwest;
-
 mod day1;
 mod day2;
 mod day3;
@@ -18,6 +13,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
 
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -63,7 +59,7 @@ fn main() {
 
     println!(" --- \u{1f384} \u{2728} Advent of Code 2018 \u{2728} \u{1f384} --- ");
 
-    let mut days: Vec<Box<Fn(&str)>> = vec![
+    let mut days: Vec<Box<dyn Fn(&str)>> = vec![
         Box::new(|s| run(s, 1, "Chronal Calibration", day1::part1, day1::part2)),
         Box::new(|s| run(s, 2, "Inventory Management System", day2::part1, day2::part2)),
         Box::new(|s| run(s, 3, "No Matter How You Slice It", day3::part1, day3::part2)),
@@ -78,7 +74,8 @@ fn main() {
         Box::new(|s| run(s, 12, "Subterranean Sustainability", day12::part1, day12::part2)),
         Box::new(|s| run(s, 13, "Mine Cart Madness", day13::part1, day13::part2)),
         Box::new(|s| run(s, 14, "Chocolate Charts", day14::part1, day14::part2)),
-        Box::new(|s| run(s, 15, "Beverage Bandits", day15::part1, day15::part2))
+        Box::new(|s| run(s, 15, "Beverage Bandits", day15::part1, day15::part2)),
+        Box::new(|s| run(s, 16, "Chronal Classification", day16::part1, day16::part2))
     ];
 
     if let Some(day) = std::env::args().nth(1) {
